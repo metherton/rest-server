@@ -16,7 +16,7 @@ exports.verifyOrdinaryUser = function (req, res, next) {
     if (token) {
         // verifies secret and checks exp
         jwt.verify(token, config.secretKey, function (err, decoded) {
-          
+
             if (err) {
                 var err = new Error('You are not authenticated!');
                 err.status = 401;
@@ -33,5 +33,14 @@ exports.verifyOrdinaryUser = function (req, res, next) {
         var err = new Error('No token provided!');
         err.status = 403;
         return next(err);
+    }
+};
+
+exports.verifyAdmin = function (req, res, next) {
+    var err = new Error('Not authorized');
+    if (req.decoded._doc.admin) {
+        return next();
+    } else {
+        return next(err)
     }
 };
