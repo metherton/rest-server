@@ -5,6 +5,8 @@ var passportLocalMongoose = require('passport-local-mongoose');
 var User = new Schema({
     username: String,
     password: String,
+    OauthId: String,
+    OauthToken: String,
     firstname: {
         type: String,
         default: ''
@@ -18,7 +20,6 @@ var User = new Schema({
         default: false
     }
 });
-
 User.methods.getName = function() {
     return (this.firstname + ' ' + this.lastname);
 };
