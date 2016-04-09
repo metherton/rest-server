@@ -16,11 +16,12 @@ favoriteRouter.route('/')
             .exec(function (err, favorite) {
                 if (err) throw err;
                 //res.json(favorite.dishes);
-                    if (favorite) {
-                        res.json(favorite);
-                    } else {
-                        res.json(null);
-                    }
+                res.json(favorite);
+                    //if (favorite) {
+                    //    res.json(favorite);
+                    //} else {
+                    //    res.json(null);
+                    //}
 
             });
         //Favorites.find({})
@@ -48,10 +49,11 @@ favoriteRouter.route('/')
     //        res.end('Added the favorite: ' + favorite);
     //        //res.end('Added the favorite with id: ' + id);
     //    });
-        req.body.postedBy = req.decoded._doc._id;
+
         Favorites.findOne({postedBy: req.decoded._doc._id}, function (err, favorite) {
             if (err) throw err;
             console.log("favorite is", favorite);
+            req.body.postedBy = req.decoded._doc._id;
             if (!favorite) {
                 favorite = new Favorites();
                 favorite.postedBy = req.body.postedBy;
