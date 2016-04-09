@@ -27,8 +27,9 @@ favoriteRouter.route('/')
                 favorite = new Favorites();
                 favorite.postedBy = req.body.postedBy;
             }
-            if (!req.body in favorite.dishes) {
-                favorite.dishes.push(req.body);
+            if (favorite.dishes.indexOf(req.body._id) == -1) {
+                console.log('pusb it then ');
+                favorite.dishes.push(req.body._id);
             }
             favorite.save(function (err, favorite) {
                 if (err) throw err;
@@ -36,41 +37,27 @@ favoriteRouter.route('/')
                 res.json(favorite);
             });
         });
-    })
-
-    .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
-        Favorites.remove({}, function (err, resp) {
-            if (err) throw err;
-            res.json(resp);
-        });
     });
 
-favoriteRouter.route('/:favoriteId')
-    .get(Verify.verifyOrdinaryUser, function (req, res, next) {
-        Favorites.findById(req.params.favoriteId)
-            .populate('postedBy')
-            .populate('dishes')
-            .exec(function (err, dish) {
-                if (err) throw err;
-                res.json(dish);
-            });
-    })
-
-    .put(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
-        Favorites.findByIdAndUpdate(req.params.favoriteId, {
-            $set: req.body
-        }, {
-            new: true
-        }, function (err, favorite) {
-            if (err) throw err;
-            res.json(favorite);
-        });
-    })
-
+favoriteRouter.route('/:dishId')
     .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
-        Favorites.findByIdAndRemove(req.params.favoriteId, function (err, resp) {
+        Favorites.findOne({postedBy: req.decoded._doc._id}, function (err, favorite) {
             if (err) throw err;
-            res.json(resp);
+            if (favorite) {
+                var dishToDelete = -1;
+                for (var i = 0; i < favorite.dishes.length; i++) {
+                    if (favorite.dishes[i] == req.params.dishId) {
+                        dishToDelete = i;
+                    }
+                }
+                favorite.dishes.splice(dishToDelete,1);
+                favorite.save(function (err, favorite) {
+                    if (err) throw err;
+                    console.log('Updated Favorites!');
+                    res.json(favorite);
+                });
+            }
+
         });
     });
 
