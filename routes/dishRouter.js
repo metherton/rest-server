@@ -60,10 +60,10 @@ dishRouter.route('/:dishId')
     })
 
     .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
-        Dishes.findByIdAndRemove(req.params.dishId, function (err, resp) {
-            if (err) throw err;
-            res.json(resp);
-        });
+                Dishes.findByIdAndRemove(req.params.dishId, function (err, resp) {
+                if (err) throw err;
+                res.json(resp);
+            });
     });
 
 dishRouter.route('/:dishId/comments')

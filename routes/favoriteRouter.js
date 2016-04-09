@@ -37,6 +37,16 @@ favoriteRouter.route('/')
                 res.json(favorite);
             });
         });
+    })
+
+
+    .delete(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
+        Favorites.findOne({postedBy: req.decoded._doc._id}, function (err, favorite) {
+            Favorites.remove({}, function (err, resp) {
+                if (err) throw err;
+                res.json(favorite);
+            });
+        });
     });
 
 favoriteRouter.route('/:dishId')
