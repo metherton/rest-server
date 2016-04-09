@@ -15,57 +15,21 @@ favoriteRouter.route('/')
             .populate('dishes')
             .exec(function (err, favorite) {
                 if (err) throw err;
-                //res.json(favorite.dishes);
                 res.json(favorite);
-                    //if (favorite) {
-                    //    res.json(favorite);
-                    //} else {
-                    //    res.json(null);
-                    //}
-
             });
-        //Favorites.find({})
-        //    .populate('postedBy')
-        //    .populate('dishes')
-        //    .exec(function (err, favorite) {
-        //        if (err) throw err;
-        //        res.json(favorite);
-        //    });
     })
 
     .post(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
-    //    req.body.postedBy = req.decoded._doc._id;
-    ////    req.body.dishes.push(req.body._id);
-    //    console.log('req is', req);
-    //
-    //    Favorites.create(req.body, function (err, favorite) {
-    //        if (err) throw err;
-    //        console.log('Favorite created!');
-    //      //  var id = favorite._id;
-    //        res.writeHead(200, {
-    //            'Content-Type': 'text/plain'
-    //        });
-    //
-    //        res.end('Added the favorite: ' + favorite);
-    //        //res.end('Added the favorite with id: ' + id);
-    //    });
-
         Favorites.findOne({postedBy: req.decoded._doc._id}, function (err, favorite) {
             if (err) throw err;
-            console.log("favorite is", favorite);
             req.body.postedBy = req.decoded._doc._id;
             if (!favorite) {
                 favorite = new Favorites();
                 favorite.postedBy = req.body.postedBy;
-                console.log("req.body.postedBy", req.body.postedBy);
-
-                console.log("in if", favorite);
             }
-            console.log("favorite new is ", favorite);
-            //if (favorite.dishes === undefined) {
-            //    favorite.dishes = [];
-            //}
-            favorite.dishes.push(req.body);
+            if (!req.body in favorite.dishes) {
+                favorite.dishes.push(req.body);
+            }
             favorite.save(function (err, favorite) {
                 if (err) throw err;
                 console.log('Updated Favorites!');
