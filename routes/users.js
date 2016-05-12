@@ -5,12 +5,12 @@ var User = require('../models/user');
 var Verify    = require('./verify');
 
 /* GET users listing. */
-router.get('/', Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
-  User.find({}, function (err, user) {
-    if (err) throw err;
-    res.json(user);
-  });
-});
+//router.get('/', Verify.verifyOrdinaryUser, Verify.verifyAdmin, function(req, res, next) {
+//  User.find({}, function (err, user) {
+//    if (err) throw err;
+//    res.json(user);
+//  });
+//});
 
 router.post('/register', function(req, res) {
   User.register(new User({ username : req.body.username }),
