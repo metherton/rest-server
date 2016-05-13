@@ -41,6 +41,14 @@ var app = express();
 //  res.redirect('https://'+req.hostname+':'+app.get('secPort')+req.url);
 //});
 
+app.all("/api/*", function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With, x-access-token");
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
+  return next();
+});
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -60,7 +68,7 @@ app.use(passport.initialize());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
+app.use('/api/users', users);
 app.use('/dishes',dishRouter);
 app.use('/promotions',promoRouter);
 app.use('/leadership',leaderRouter);

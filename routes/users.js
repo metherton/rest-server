@@ -12,6 +12,23 @@ var Verify    = require('./verify');
 //  });
 //});
 
+router.get('/', Verify.verifyOrdinaryUser, function(req, res, next) {
+  User.find({}, function (err, user) {
+    if (err) throw err;
+    res.json(user);
+    console.log('user is ', user);
+  });
+});
+
+//router.get('/', function(req, res, next) {
+//  User.find({}, function (err, user) {
+//    if (err) throw err;
+//    res.json(user);
+//    console.log('user is ', user);
+//  });
+//});
+
+
 router.post('/register', function(req, res) {
   User.register(new User({ username : req.body.username }),
       req.body.password, function(err, user) {
