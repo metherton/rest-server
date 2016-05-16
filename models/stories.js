@@ -9,7 +9,7 @@ var storySchema = new Schema({
         required: true
     },
     effort: {
-        type: Integer,
+        type: Number,
         required: true
     },
     assignee: {
@@ -30,7 +30,7 @@ var storySchema = new Schema({
 
 // the schema is useless so far
 // we need to create a model using it
-var Sprints = mongoose.model('Sprint', sprintSchema);
+var Stories = mongoose.model('Story', storySchema);
 
 // make this available to our Node applications
-module.exports = Sprints;
+module.exports = Stories;
