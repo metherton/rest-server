@@ -3,24 +3,27 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 // create a schema
-var sprintSchema = new Schema({
-    name: {
+var storySchema = new Schema({
+    description: {
         type: String,
-        required: true,
-        unique: true
-    },
-    beginDate: {
-        type: Date,
         required: true
     },
-    endDate: {
-        type: Date,
+    effort: {
+        type: Integer,
         required: true
     },
-    stories:[{
+    assignee: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Story'
-    }]
+        ref: 'User'
+    },
+    status: {
+        type: String,
+        required: true
+    },
+    recurring: {
+        type: Boolean,
+        default: false
+    }
 }, {
     timestamps: true
 });

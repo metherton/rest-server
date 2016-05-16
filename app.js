@@ -28,6 +28,7 @@ var promoRouter = require('./routes/promoRouter');
 var leaderRouter = require('./routes/leaderRouter');
 var favoriteRouter = require('./routes/favoriteRouter');
 var sprintRouter = require('./routes/sprintRouter');
+var storyRouter = require('./routes/storyRouter');
 
 
 var app = express();
@@ -71,6 +72,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/api/users', users);
 app.use('/api/sprints', sprintRouter);
+app.use('/api/stories', storyRouter);
 app.use('/dishes',dishRouter);
 app.use('/promotions',promoRouter);
 app.use('/leadership',leaderRouter);
