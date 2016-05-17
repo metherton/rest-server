@@ -16,7 +16,7 @@ storyRouter.route('/')
         });
     })
 
-    .post(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
+    .post(Verify.verifyOrdinaryUser, function (req, res, next) {
         console.log(req.body);
         Stories.create(req.body, function (err, story) {
             if (err) throw err;

@@ -8,7 +8,7 @@ var storySchema = new Schema({
         type: String,
         required: true
     },
-    effort: {
+    points: {
         type: Number,
         required: true
     },
