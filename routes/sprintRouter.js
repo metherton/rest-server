@@ -27,6 +27,7 @@ sprintRouter.route('/')
                 'Content-Type': 'text/plain'
             });
             res.end('Added the sprint with id: ' + id);
+            console.log(res);
         });
     })
 
