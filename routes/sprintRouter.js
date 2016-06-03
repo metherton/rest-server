@@ -39,10 +39,11 @@ sprintRouter.route('/')
     });
 
 sprintRouter.route('/:sprintId')
-    .get(Verify.verifyOrdinaryUser, function (req, res, next) {
-        Sprints.findById(req.params.sprintId, function (err, sprint) {
+    .get(function (req, res, next) {
+        Sprints.find({}, function (err, sprint) {
             if (err) throw err;
-            res.json(sprint);
+            console.log('sprint0', sprint[0]);
+            res.json(sprint[0]);
         });
     })
 
