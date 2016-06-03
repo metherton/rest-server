@@ -6,10 +6,11 @@ var Schema = mongoose.Schema;
 var storySchema = new Schema({
     description: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     points: {
-        type: Number,
+        type: String,
         required: true
     },
     assignee: {
@@ -21,8 +22,7 @@ var storySchema = new Schema({
         required: true
     },
     recurring: {
-        type: Boolean,
-        default: false
+        type: Boolean
     }
 }, {
     timestamps: true

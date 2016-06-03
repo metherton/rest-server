@@ -19,6 +19,7 @@ storyRouter.route('/')
     .post(Verify.verifyOrdinaryUser, function (req, res, next) {
         console.log(req.body);
         Stories.create(req.body, function (err, story) {
+            console.log(err);
             if (err) throw err;
             console.log('sprint created!');
             var id = story._id;
