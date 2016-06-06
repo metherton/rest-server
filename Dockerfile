@@ -16,4 +16,4 @@ RUN npm install  && npm install bower -g && npm install gulp -g && bower install
 COPY . /usr/src/app
 
 EXPOSE 9000
-CMD [ "gulp", "serve" ]
+CMD [ "npm", "start" ]
