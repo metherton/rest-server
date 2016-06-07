@@ -13,4 +13,4 @@ RUN npm install  && npm install gulp -g && npm install gulp-cli -g
 COPY . /usr/src/app
 
 EXPOSE 9000
-CMD [ "npm", "start" ]
+CMD [ "node", "bin/www" ]
