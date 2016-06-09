@@ -40,11 +40,18 @@ sprintRouter.route('/')
 
 sprintRouter.route('/:sprintId')
     .get(function (req, res, next) {
-        Sprints.find({}, function (err, sprint) {
-            if (err) throw err;
-            console.log('sprint0', sprint[0]);
-            res.json(sprint[0]);
-        });
+        Sprints.find({})
+            .populate('stories')
+            .exec(function (err, stories) {
+                if (err) throw err;
+                res.json(stories[0]);
+            });
+
+        //Sprints.find({}, function (err, sprint) {
+        //    if (err) throw err;
+        //    console.log('sprint0', sprint[0]);
+        //    res.json(sprint[0]);
+        //});
     })
 
     .put(Verify.verifyOrdinaryUser, Verify.verifyAdmin, function (req, res, next) {
