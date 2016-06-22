@@ -23,6 +23,10 @@ var storySchema = new Schema({
     },
     recurring: {
         type: Boolean
+    },
+    iconClass: {
+        type: String,
+        required: true
     }
 }, {
     timestamps: true
